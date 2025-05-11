@@ -7,32 +7,6 @@ permalink: /encrypt-decrypt/
 <!-- Font Awesome CDN untuk ikon -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-<style>
-  body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-  }
-  body.dark-mode textarea,
-  body.dark-mode pre,
-  body.dark-mode select,
-  body.dark-mode input {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-    border: 1px solid #444;
-  }
-  button {
-    margin-right: 5px;
-    margin-top: 10px;
-  }
-  #status {
-    margin-top: 10px;
-    font-weight: bold;
-  }
-  .status-icon {
-    margin-right: 10px;
-  }
-</style>
-
 # Text Encrypt / Decrypt Tool
 
 Encrypt and decrypt text using various methods. All processing is done in your browser.
