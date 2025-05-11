@@ -4,8 +4,6 @@ title: QR Code Generator & Scanner
 permalink: /qr-generator/
 ---
 
-# QR Code Generator & Scanner
-
 ## QR Code Generator
 
 <textarea id="qr-input" rows="4" style="width:100%" placeholder="Enter text or URL here..."></textarea>
@@ -62,20 +60,22 @@ permalink: /qr-generator/
     const color = document.getElementById("qr-color").value;
     const bg = document.getElementById("qr-bg").value;
 
-    if (!text.trim()) {
-      alert("Please enter some text.");
-      return;
+    // Validate if the input is a URL
+    const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+    if (urlPattern.test(text)) {
+      // It's a URL, so generate QR for it
+      container.innerHTML = "";
+      qr = new QRCode(container, {
+        text: text,
+        width: size,
+        height: size,
+        colorDark: color,
+        colorLight: bg,
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+    } else {
+      alert("Please enter a valid URL.");
     }
-
-    container.innerHTML = "";
-    qr = new QRCode(container, {
-      text: text,
-      width: size,
-      height: size,
-      colorDark: color,
-      colorLight: bg,
-      correctLevel: QRCode.CorrectLevel.H,
-    });
   }
 
   function downloadQR() {
