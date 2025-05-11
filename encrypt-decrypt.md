@@ -9,10 +9,6 @@ permalink: /encrypt-decrypt/
 
 Encrypt and decrypt text using various methods. All processing is done in your browser.
 
-<label>
-  <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()"> Dark Mode
-</label>
-
 ## Input Text (Max 1000 characters)
 
 <textarea id="input" rows="5" maxlength="1000" style="width: 100%;" placeholder="Enter your text here..."></textarea>
@@ -172,10 +168,6 @@ Encrypt and decrypt text using various methods. All processing is done in your b
 
     URL.revokeObjectURL(url);
     showStatus("Output downloaded.", false);
-  }
-
-  function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
   }
 
   function showStatus(msg, isError = false) {
