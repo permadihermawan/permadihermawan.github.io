@@ -103,11 +103,16 @@ permalink: /qr-generator/
   function startScanner() {
     const resultElement = document.getElementById("scan-result");
     html5QrCode = new Html5Qrcode("reader");
+
     Html5Qrcode.getCameras().then(devices => {
-      if (devices && devices.length) {
-        const cameraId = devices[0].id;
+      // Otomatis pilih kamera belakang jika ada
+      const backCam = devices.find(device =>
+        /back|rear|environment/i.test(device.label)
+      ) || devices[0];
+
+      if (backCam) {
         html5QrCode.start(
-          cameraId,
+          backCam.id,
           { fps: 10, qrbox: 250 },
           qrCodeMessage => {
             resultElement.textContent = qrCodeMessage;
@@ -118,6 +123,8 @@ permalink: /qr-generator/
             console.warn("QR scan error:", errorMessage);
           }
         );
+      } else {
+        alert("No camera available.");
       }
     }).catch(err => {
       alert("Camera access denied or not supported.");
