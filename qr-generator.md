@@ -4,6 +4,8 @@ title: QR Code Generator & Scanner
 permalink: /qr-generator/
 ---
 
+# QR Code Generator & Scanner
+
 ## QR Code Generator
 
 <textarea id="qr-input" rows="4" style="width:100%" placeholder="Enter text or URL here..."></textarea>
@@ -11,18 +13,15 @@ permalink: /qr-generator/
 <label>
   Size:
   <input type="number" id="qr-size" value="256" min="100" max="1024" /> px
-</label>
-<br>
+</label><br>
 <label>
   Foreground color:
   <input type="color" id="qr-color" value="#000000" />
-</label>
-<br>
+</label><br>
 <label>
   Background color:
   <input type="color" id="qr-bg" value="#ffffff" />
-</label>
-<br><br>
+</label><br><br>
 
 <button onclick="generateQR()">Generate QR</button>
 <button onclick="downloadQR()">Download PNG</button>
@@ -36,6 +35,7 @@ permalink: /qr-generator/
 
 <button onclick="startScanner()">Start Scanner</button>
 <button onclick="stopScanner()">Stop Scanner</button>
+<input type="file" accept="image/*" onchange="scanImage(this)" />
 <p><strong>Last Result:</strong> <span id="scan-result">-</span></p>
 
 <div id="reader" style="width:100%; max-width:400px;"></div>
@@ -47,7 +47,6 @@ permalink: /qr-generator/
 
 <!-- QRCode.js -->
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-
 <!-- Html5 QR Code Scanner -->
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
@@ -105,7 +104,6 @@ permalink: /qr-generator/
     html5QrCode = new Html5Qrcode("reader");
 
     Html5Qrcode.getCameras().then(devices => {
-      // Otomatis pilih kamera belakang jika ada
       const backCam = devices.find(device =>
         /back|rear|environment/i.test(device.label)
       ) || devices[0];
@@ -138,6 +136,21 @@ permalink: /qr-generator/
         html5QrCode = null;
       }).catch(err => console.error("Stop scanner error:", err));
     }
+  }
+
+  function scanImage(input) {
+    if (!input.files || !input.files[0]) return;
+    const file = input.files[0];
+
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.scanFile(file, true)
+      .then(qrCodeMessage => {
+        document.getElementById("scan-result").textContent = qrCodeMessage;
+        addToHistory(qrCodeMessage);
+      })
+      .catch(err => {
+        alert("Failed to scan image: " + err);
+      });
   }
 
   function addToHistory(text) {
@@ -177,6 +190,5 @@ permalink: /qr-generator/
     link.click();
   }
 
-  // On load
   updateHistoryUI();
 </script>
