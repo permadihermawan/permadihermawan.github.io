@@ -2,43 +2,43 @@
 layout: default
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Permadi Hermawan</title>
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Courier New', Courier, monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+<style>
+.typing-container {
+  font-size: 2.5rem;
+  font-family: 'Courier New', Courier, monospace;
+  border-right: 2px solid #333;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  color: #333;
+  animation: typing 3s steps(20, end) forwards, blink 0.75s step-end infinite;
+  margin: 40px auto;
+  text-align: center;
+  max-width: 100%;
+}
 
-    .typing-container {
-      font-size: 2.5rem;
-      border-right: 2px solid #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      width: 0;
-      animation: typing 4s steps(20, end) forwards, blink 0.75s step-end infinite;
-    }
+@keyframes typing {
+  from { width: 0 }
+  to { width: 18ch }
+}
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 18ch }
-    }
+@keyframes blink {
+  50% { border-color: transparent }
+}
+</style>
 
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-  </style>
-</head>
-<body>
-  <div class="typing-container">PERMADI HERMAWAN</div>
-</body>
-</html>
+<div class="typing-container">PERMADI HERMAWAN</div>
+
+<div class="posts">
+  {% for post in site.posts %}
+    <article class="post">
+      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
+
+      <div class="entry">
+        {{ post.excerpt }}
+      </div>
+
+      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+    </article>
+  {% endfor %}
+</div>
